@@ -160,6 +160,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    print(args)
+    print(args, flush=True)
 
     dist.launch(main, args.n_gpu, 1, 0, args.dist_url, args=(args,))
