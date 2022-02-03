@@ -13,4 +13,4 @@
 
 source /home2/aditya1/miniconda3/bin/activate stargan-v2
 cd /ssd_scratch/cvit/aditya1/vq-vae-2-pytorch
-python train_vqvae.py /ssd_scratch/cvit/aditya1/CelebAPaired/train/ --n_gpu 4 --epoch 1000
+python train_vqvae.py /ssd_scratch/cvit/aditya1/CelebAPaired/ --n_gpu 4 --epoch 1000

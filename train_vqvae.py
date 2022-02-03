@@ -15,6 +15,8 @@ from scheduler import CycleScheduler
 import distributed as dist
 from dataset import CelebaDataset
 
+os.makedirs('checkpoint', exist_ok=True)
+os.makedirs('sample', exist_ok=True)
 
 def train(epoch, loader, model, optimizer, scheduler, device):
     if dist.is_primary():
@@ -37,7 +39,7 @@ def train(epoch, loader, model, optimizer, scheduler, device):
 
         out, latent_loss = model(source)
         # recon_loss = criterion(out, img)
-        recon_loss = criterion(out, target) # Get the recon loss between generate and target img
+        recon_loss = criterion(out, target) # Get the recon loss between generated and target img        
         latent_loss = latent_loss.mean()
         loss = recon_loss + latent_loss_weight * latent_loss
         loss.backward()

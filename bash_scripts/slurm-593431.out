@@ -1,0 +1,34 @@
+==========================================
+SLURM_JOB_ID = 593431
+SLURM_NODELIST = gnode80
+SLURM_JOB_GPUS = 0,1,2,3
+==========================================
+Namespace(dist_url='tcp://127.0.0.1:51446', epoch=1000, lr=0.0003, n_gpu=4, path='/ssd_scratch/cvit/aditya1/CelebAPerturbed/', sched=None, size=256)
+  0%|          | 0/1172 [00:00<?, ?it/s]epoch: 1; mse: 0.38708; latent: 1.130; avg mse: 0.39796; lr: 0.00030:   0%|          | 0/1172 [00:03<?, ?it/s]epoch: 1; mse: 0.38708; latent: 1.130; avg mse: 0.39796; lr: 0.00030:   0%|          | 0/1172 [00:04<?, ?it/s]
+Traceback (most recent call last):
+  File "train_vqvae.py", line 165, in <module>
+    dist.launch(main, args.n_gpu, 1, 0, args.dist_url, args=(args,))
+  File "/ssd_scratch/cvit/aditya1/vq-vae-2-pytorch/distributed/launch.py", line 45, in launch
+    daemon=False,
+  File "/home2/aditya1/miniconda3/envs/stargan-v2/lib/python3.6/site-packages/torch/multiprocessing/spawn.py", line 171, in spawn
+    while not spawn_context.join():
+  File "/home2/aditya1/miniconda3/envs/stargan-v2/lib/python3.6/site-packages/torch/multiprocessing/spawn.py", line 118, in join
+    raise Exception(msg)
+Exception: 
+
+-- Process 0 terminated with the following error:
+Traceback (most recent call last):
+  File "/home2/aditya1/miniconda3/envs/stargan-v2/lib/python3.6/site-packages/torch/multiprocessing/spawn.py", line 19, in _wrap
+    fn(i, *args)
+  File "/ssd_scratch/cvit/aditya1/vq-vae-2-pytorch/distributed/launch.py", line 92, in distributed_worker
+    fn(*args)
+  File "/ssd_scratch/cvit/aditya1/vq-vae-2-pytorch/train_vqvae.py", line 138, in main
+    train(i, loader, model, optimizer, scheduler, device)
+  File "/ssd_scratch/cvit/aditya1/vq-vae-2-pytorch/train_vqvae.py", line 82, in train
+    range=(-1, 1),
+  File "/home2/aditya1/miniconda3/envs/stargan-v2/lib/python3.6/site-packages/torchvision/utils.py", line 109, in save_image
+    im.save(fp, format=format)
+  File "/home2/aditya1/miniconda3/envs/stargan-v2/lib/python3.6/site-packages/PIL/Image.py", line 2237, in save
+    fp = builtins.open(filename, "w+b")
+FileNotFoundError: [Errno 2] No such file or directory: 'sample/00001_00000.png'
+
