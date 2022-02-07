@@ -26,7 +26,7 @@ wheels/
 MANIFEST
 
 # Project files
-bash_scripts/
+bash_scripts
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
