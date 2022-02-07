@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-#SBATCH --job-name=vqvae2
+#SBATCH --job-name=temp
 #SBATCH --mem-per-cpu=1024
 #SBATCH --partition long
 #SBATCH --account cvit_bhaasha
