@@ -161,6 +161,48 @@ class Decoder(nn.Module):
         return self.blocks(input)
 
 
+# Discriminator based on the DCGAN network
+class Discriminator(nn.Module):
+    def __init__(self, im_channels=3, hidden_dim=64):
+        super(Discriminator, self).__init__()
+        self.discriminator = nn.Sequential(
+            self.make_conv_layer(im_channels, hidden_dim),
+            self.make_conv_layer(hidden_dim, hidden_dim*2),
+            self.make_conv_layer(hidden_dim*2, hidden_dim*4),
+            
+            self.make_disc_layer(hidden_dim*4, hidden_dim*8),
+            self.make_disc_layer(hidden_dim*8, hidden_dim*16),
+            self.make_disc_layer(hidden_dim*16, 1, final_layer=True)
+        )
+        
+    def forward(self, image):
+        disc_pred = self.discriminator(image)
+        return disc_pred.view(len(disc_pred), -1)
+        
+    def make_conv_layer(self, in_channels, out_channels, kernel_size=3, stride=1):
+        return nn.Sequential(
+            nn.Conv2d(in_channels, out_channels, kernel_size),
+            nn.BatchNorm2d(out_channels),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(out_channels, out_channels, kernel_size),
+            nn.BatchNorm2d(out_channels),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+        )
+        
+    def make_disc_layer(self, in_channels, out_channels, kernel_size=4, stride=2, final_layer=False):
+        if not final_layer:
+            return nn.Sequential(
+                nn.Conv2d(in_channels, out_channels, kernel_size, stride=stride),
+                nn.BatchNorm2d(out_channels),
+                nn.LeakyReLU(0.2, inplace=True) # saves memory doing it inplace, doesn't generate a new output
+            )
+        else:
+            return nn.Sequential(
+                nn.Conv2d(in_channels, out_channels, kernel_size, stride=stride) # no activation required for the final layer
+            )
+
+
 class VQVAE(nn.Module):
     def __init__(
         self,
