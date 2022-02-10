@@ -27,6 +27,7 @@ MANIFEST
 
 # Project files
 bash_scripts
+temp
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
